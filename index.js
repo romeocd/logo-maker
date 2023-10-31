@@ -1,6 +1,7 @@
 const fs = require("fs");
 const inquirer = require("inquirer");
-const path = require("path");
+
+const {} = require("./lib/shapes")
 
 //Function to create logo with prompts
 function createLogo() {
@@ -9,7 +10,7 @@ function createLogo() {
     {
         type: "input",
         name:"text",
-        message:"Please enter the text.",
+        message:"Please enter the text (up to 3 characters).",
         //function to have logo text up to three characters
         validate: function (input) {
             if (input.length <= 3) {
@@ -23,7 +24,7 @@ function createLogo() {
     {
         type: "input",
         name:"text-color",
-        message: "Please enter the text color.",
+        message: "Please enter text color (or a hexadecimal number).",
     },
 
     {
@@ -36,7 +37,7 @@ function createLogo() {
     {
         type: "input",
         name:"shape-color",
-        message: "Please enter the shape color.",
+        message: "Please enter shape color (or a hexadecimal number).",
     }
 ])
 .then((answers) => {
