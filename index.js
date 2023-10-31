@@ -47,6 +47,23 @@ function createLogo() {
 function writeToFile(fileName, answers) {
   const { text, textColor, shape, shapeColor } = answers;
 
+  let shapeSVG = "";
+
+    // Generate SVG content based on the selected shape
+    switch (shape) {
+      case 'Circle':
+        shapeSVG = '<circle cx="150" cy="100" r="50" fill="' + shapeColor + '" />';
+        break;
+      case 'Triangle':
+        shapeSVG = '<polygon points="150,50 100,150 200,150" fill="' + shapeColor + '" />';
+        break;
+      case 'Square':
+        shapeSVG = '<rect x="100" y="50" width="100" height="100" fill="' + shapeColor + '" />';
+        break;
+      default:
+        break;
+    }
+    
   // Generate SVG content based on answers
   const svgContent = `
     <svg width="300" height="200" xmlns="http://www.w3.org/2000/svg">
