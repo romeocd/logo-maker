@@ -6,14 +6,13 @@ const { Square, Circle, Triangle } = require("./lib/shapes")
 
 //Function to create logo for inquirer prompts
 function createLogo(answers) {
-  if (answers.text.length > 3) {
-    console.log("Please enter no more than 3 characters.")
-    createLogo(answers);
-  } else {
     const svg = makeShape(answers);
-    fs.writeFile("logo.svg", svg, () => console.log('Generated logo.svg'));
+    if (svg) {
+      fs.writeFile("logo.svg", svg, () => console.log('Generated logo.svg'));
+    } else {
+      console.log("Error: SVG content is undefined.");
+    }
   }
-}
 
 const questions = [
     {
@@ -26,7 +25,7 @@ const questions = [
           }
           return true;
       }
-  },
+    },
   
 
     {
@@ -36,7 +35,7 @@ const questions = [
     },
 
     {
-        type: "checkbox",
+        type: "list",
         name:"shape",
         message: "Please select the shape.",
         choices: ["Circle", "Triangle", "Square"],
@@ -50,20 +49,20 @@ const questions = [
 ]
 
   
-function makeShape (answers) {
+function makeShape(answers) {
   if (answers.shape === 'Circle') {
-    let newShape = new Circle (answers.shapeColor, answers.text, answers.textColor)
-    return newShape.render()
+    let userShape = new Circle (answers.shapeColor, answers.text, answers.textColor)
+    return userShape.render()
 }
 
 if (answers.shape === 'Square') {
-    let newShape = new Square (answers.shapeColor, answers.text, answers.textColor)
-    return newShape.render()
+    let userShape = new Square (answers.shapeColor, answers.text, answers.textColor)
+    return userShape.render()
 }
 
 if (answers.shape === 'Triangle') {
-    let newShape = new Triangle (answers.shapeColor, answers.text, answers.textColor)
-    return newShape.render()
+    let userShape = new Triangle (answers.shapeColor, answers.text, answers.textColor)
+    return userShape.render()
 }
 };
 
