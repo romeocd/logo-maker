@@ -44,6 +44,22 @@ function createLogo() {
     });
   }
   
+function makeShape (answers) {
+  if (answers.shape === 'Circle') {
+    let newShape = new Circle (answers.shapeColor, answers.text, answers.textColor)
+    return newShape.render()
+}
+
+if (answers.shape === 'Square') {
+    let newShape = new Square (answers.shapeColor, answers.text, answers.textColor)
+    return newShape.render()
+}
+
+if (answers.shape === 'Triangle') {
+    let newShape = new Triangle (answers.shapeColor, answers.text, answers.textColor)
+    return newShape.render()
+}
+};
 
 function init() {
   inquirer 
