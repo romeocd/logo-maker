@@ -38,13 +38,22 @@ function createLogo() {
         console.log("Please enter no more than 3 characters.")
         createLogo();
       } else {
-        writeToFile("logo.svg", answers)
+        const svg = makeShape(response);
+        fs.writeFile(fileName, svg, ()=> console.log('Generated logo.svg'));
       }
     });
   }
   
 
+function init() {
+  inquirer 
+  .prompt(questions)
+  .then((response) => {
+      createLogo(response);
+      })
+  .catch(err => {
+          console.log(err)
+      });
+}
 
-
-
-createLogo();
+init();
