@@ -20,7 +20,14 @@ const questions = [
         type: "input",
         name:"text",
         message:"Please enter the text (up to 3 characters).",
-    },
+        validate: (answer) => {
+          if (answer.length > 3) {
+              return console.log("\n 3 characters max. Please try again");
+          }
+          return true;
+      }
+  },
+  
 
     {
         type: "input",
