@@ -5,9 +5,17 @@ const inquirer = require("inquirer");
 const { Square, Circle, Triangle } = require("./lib/shapes")
 
 //Function to create logo for inquirer prompts
-function createLogo() {
-    inquirer
-        .prompt([
+function createLogo(answers) {
+  if (answers.text.length > 3) {
+    console.log("Please enter no more than 3 characters.")
+    createLogo(answers);
+  } else {
+    const svg = makeShape(answers);
+    fs.writeFile("logo.svg", svg, () => console.log('Generated logo.svg'));
+  }
+}
+
+const questions = [
     {
         type: "input",
         name:"text",
@@ -32,17 +40,8 @@ function createLogo() {
         name:"shapeColor",
         message: "Please enter shape color (or a hexadecimal number).",
     }
-])
-  .then((answers) => {
-      if (answers.text.length > 3) {
-        console.log("Please enter no more than 3 characters.")
-        createLogo();
-      } else {
-        const svg = makeShape(response);
-        fs.writeFile(fileName, svg, ()=> console.log('Generated logo.svg'));
-      }
-    });
-  }
+]
+
   
 function makeShape (answers) {
   if (answers.shape === 'Circle') {
@@ -64,8 +63,8 @@ if (answers.shape === 'Triangle') {
 function init() {
   inquirer 
   .prompt(questions)
-  .then((response) => {
-      createLogo(response);
+  .then((answers) => {
+      createLogo(answers);
       })
   .catch(err => {
           console.log(err)
