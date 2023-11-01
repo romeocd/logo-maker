@@ -2,7 +2,7 @@ const fs = require("fs");
 const inquirer = require("inquirer");
 
 //Import classes from ./lib/shapes directory
-const {Circle, Square, Triangle} = require("./lib/shapes")
+const { Square, Circle, Triangle } = require("./lib/shapes")
 
 //Function to create logo for inquirer prompts
 function createLogo() {
@@ -16,7 +16,7 @@ function createLogo() {
 
     {
         type: "input",
-        name:"text-color",
+        name:"textColor",
         message: "Please enter text color (or a hexadecimal number).",
     },
 
@@ -29,7 +29,7 @@ function createLogo() {
 
     {
         type: "input",
-        name:"shape-color",
+        name:"shapeColor",
         message: "Please enter shape color (or a hexadecimal number).",
     }
 ])
@@ -43,44 +43,7 @@ function createLogo() {
     });
   }
   
-//Function to write to the SVG file using answers from the prompts
-function writeToFile(fileName, answers) {
-  const { text, textColor, shape, shapeColor } = answers;
 
-  let shapeSVG = "";
-
-    // Generate SVG content based on the selected shape
-    switch (shape) {
-      case 'Circle':
-        shapeSVG = '<circle cx="150" cy="100" r="50" fill="' + shapeColor + '" />';
-        break;
-      case 'Triangle':
-        shapeSVG = '<polygon points="150,50 100,150 200,150" fill="' + shapeColor + '" />';
-        break;
-      case 'Square':
-        shapeSVG = '<rect x="100" y="50" width="100" height="100" fill="' + shapeColor + '" />';
-        break;
-      default:
-        break;
-    }
-    
-  // Generate SVG content based on answers
-  const svgContent = `
-    <svg width="300" height="200" xmlns="http://www.w3.org/2000/svg">
-      <rect width="100%" height="100%" fill="${shapeColor}" />
-      <text x="10" y="150" font-size="16" fill="${textColor}">${text}</text>
-    </svg>
-  `;
-
-  // Write SVG content to the specified file
-  fs.writeFile(fileName, svgContent, (err) => {
-    if (err) {
-      console.error(`Error writing to ${fileName}:`, err);
-    } else {
-      console.log(`Generated ${fileName}`);
-    }
-  });
-}
 
 
 
